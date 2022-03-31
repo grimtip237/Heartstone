@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.enemy{
+			margin-top: 100px;
+			text-align:center;
+			height: 250px;
+		}
+		.player_img{
+			width:200px;
+			height: 300px;
+			margin-left: auto;
+			margin-right: auto;
+			background-size: 100% 100%;
+			position: relative;
+			transition: 1s;
+			opacity: 1;
+		}
+		.enemy_img{
+			width:200px;
+			height: 300px;
+			margin-left: auto;
+			margin-right: auto;
+			background-size: 100% 100%;
+			position: relative;
+			transition: 1s;
+			opacity: 1;
+		}
+		.player{
+			text-align: center;
+			height: 250px;
+			margin-top: 150px;
+
+		}
+		.player_property{
+			position: absolute;
+			top:80%;
+
+
+		}
+		.enemy_name{
+			color: white; font-family: Arial;
+		}
+		.player_name{
+			color: white; font-family: Arial
+		}
+	</style>
+</head>
+<body style="background-image: url(images/bg.jpg); background-size: 100% ">
+
+	<div class="enemy">
+		<h1 class="enemy_name"></h1>
+
+		<div class="enemy_img">
+			<h2 class="enemy_damage player_property" style="left: 10%; color: black;">0</h2>
+			<h2 class="enemy_hp player_property" style="left: 82%; color: black;">0</h2>
+		</div>	
+
+	</div>
+
+	<button class="btn" style="background: black; margin-left: 1300px;">Сыграть</button>
+
+	<div class="player">
+		<h1 class="player_name"></h1>
+		
+		<div class="player_img">
+			<h2 class="player_damage player_property" style="left: 10%; color: black;">0</h2>
+			<h2 class="player_hp player_property" style="left: 82%; color: black;">0</h2>
+		</div>
+
+	</div>
+
+	<script type="text/javascript">
+		let enm = document.querySelector(".enemy");
+		let enmHP = document.querySelector(".enemy_hp");
+		let enmDam = document.querySelector(".enemy_damage");
+		let enmName = document.querySelector(".enemy_name");
+		let enmImg = document.querySelector(".enemy_img");
+		//игрок
+		let plr = document.querySelector(".player");
+		let plrHP = document.querySelector(".player_hp");
+		let plrDam = document.querySelector(".player_damage");
+		let plrName = document.querySelector(".player_name");
+		let plrImg = document.querySelector(".player_img");
+		//кнопка
+		let btn = document.querySelector('.btn');
+
+		//бог рандома
+		let godRandom = function() {
+			let random = Math.random() *8 + 1;
+			let round = Math.round(random);
+			return round;
+		}
+
+		//функция противника
+		let enemy = {
+			name: "Соперник",
+			hp: godRandom(),
+			dmg: godRandom(),
+			img: "url(full-images/" + godRandom() + ".png)"
+		}
+		//функция игровка
+		let user = {
+			name: "Вы",
+			hp: godRandom(),
+			dmg: godRandom(),
+			img: "url(full-images/" + godRandom() + ".png)"
+		}
+		enmImg.style.backgroundImage = enemy.img
+		plrImg.style.backgroundImage = user.img
+
+		enmName.innerHTML = enemy.name 
+		plrName.innerHTML = user.name
+
+		enmHP.innerHTML = enemy.hp 
+		plrHP.innerHTML = user.hp 
+
+		enmDam.innerHTML = enemy.dmg
+		plrDam.innerHTML = user.dmg 
+
+		btn.onclick = function() {
+			enemy.hp = enemy.hp - user.dmg
+			enmHP.innerHTML = enemy.hp
+			if(enemy.hp<=0) {
+				alert('соперник повержен');
+				enmImg.style.opacity = 0;
+			}
+			user.hp = user.hp - enemy.dmg
+			plrHP.innerHTML = user.hp
+			if(user.hp<=0) {
+				alert("Вы проиграли");
+				plrImg.style.opacity = 0;
+			}
+		}
+	</script>
+</body>
+</html>
